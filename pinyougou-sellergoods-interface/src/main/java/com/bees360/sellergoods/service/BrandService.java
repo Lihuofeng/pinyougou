@@ -1,6 +1,7 @@
 package com.bees360.sellergoods.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bees360.entity.PageResult;
 import com.bees360.pojo.TbBrand;
@@ -30,5 +31,8 @@ public interface BrandService {
 	 
 	//条件查询重载品牌列表分页方法
 	public PageResult findPage(TbBrand tbBrand,int pageNum,int pageSize);
+	
+	//品牌下拉框数据
+	public List<Map> selectOptionList();
 
 }

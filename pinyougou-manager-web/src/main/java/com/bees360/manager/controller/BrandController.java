@@ -1,6 +1,7 @@
 package com.bees360.manager.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,6 +92,13 @@ public class BrandController {
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbBrand tbBrand,int page,int size){
 		return brandService.findPage(tbBrand, page, size);
+	}
+	
+	
+	//品牌下拉列表
+	@RequestMapping("/selectOptionList")
+	public List<Map> selectOptionList(){
+		return brandService.selectOptionList();
 	}
 	
 }

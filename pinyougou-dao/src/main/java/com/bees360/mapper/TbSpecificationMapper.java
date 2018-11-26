@@ -3,6 +3,8 @@ package com.bees360.mapper;
 import com.bees360.pojo.TbSpecification;
 import com.bees360.pojo.TbSpecificationExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TbSpecificationMapper {
@@ -27,4 +29,6 @@ public interface TbSpecificationMapper {
     int updateByPrimaryKeySelective(TbSpecification record);
 
     int updateByPrimaryKey(TbSpecification record);
+    
+    List<Map> selectOptionList();
 }

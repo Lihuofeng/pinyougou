@@ -179,11 +179,8 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   
-  <select id="selectByName" resultMap="BaseResultMap" parameterType="com.bees360.pojo.TbBrand">
-  	SELECT
-  	<include refid="Base_Column_List"></include>
-  	FROM tb_brand
-  	where name=#{name}
   
+  <select id="selectOptionList" resultType="java.util.Map">
+  	SELECT id, `name` AS text FROM tb_brand
   </select>
 </mapper>

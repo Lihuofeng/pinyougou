@@ -76,7 +76,18 @@
 		<scope>provided</scope>
 	</dependency>
 	
-
+	<dependency>  
+		        <groupId>org.jasig.cas.client</groupId>  
+		        <artifactId>cas-client-core</artifactId>  
+		        <!-- 排除log4j包冲突 -->  
+		        <exclusions>  
+		            <exclusion>  
+		                <groupId>org.slf4j</groupId>  
+		                <artifactId>log4j-over-slf4j</artifactId>  
+		            </exclusion>  
+		        </exclusions>  
+	</dependency> 
+	
 	<dependency>
 		<groupId>com.bees360</groupId>
 		<artifactId>pinyougou-sellergoods-interface</artifactId>

@@ -3,6 +3,8 @@ package com.bees360.mapper;
 import com.bees360.pojo.TbBrand;
 import com.bees360.pojo.TbBrandExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TbBrandMapper {
@@ -29,4 +31,5 @@ public interface TbBrandMapper {
     int updateByPrimaryKey(TbBrand record);
     
     TbBrand selectByName(String name);
+    List<Map> selectOptionList();
 }
