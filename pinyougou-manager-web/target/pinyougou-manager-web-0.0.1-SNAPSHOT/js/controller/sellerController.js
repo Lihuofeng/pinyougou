@@ -76,5 +76,19 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 			}			
 		);
 	}
+	
+	
+	//审核商家
+	$scope.updateSellerStatus=function(sellerId,status){
+		sellerService.updateSellerStatus(sellerId,status).success(
+				function(response){
+					if(response.success){
+						$scope.reloadList();//刷新列表
+					}else{
+						alert(response.message);
+					}
+				}
+		)
+	}
     
 });	

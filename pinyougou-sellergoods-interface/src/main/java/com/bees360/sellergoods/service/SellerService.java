@@ -8,6 +8,7 @@ import com.bees360.entity.PageResult;
  * @author LHF
  *
  */
+import com.bees360.entity.Result;
 public interface SellerService {
 
 	/**
@@ -57,5 +58,8 @@ public interface SellerService {
 	 * @return
 	 */
 	public PageResult findPage(TbSeller seller, int pageNum,int pageSize);
+	
+	//审核商家
+	public void updateSellerStatus(String sellerId,String status);
 	
 }

@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class TbTypeTemplate implements Serializable{
     private Long id;
 
-    private String name;
+    private String name;//模板名称
 
-    private String specIds;
+    private String specIds;//关联规格
 
-    private String brandIds;
+    private String brandIds;//关联品牌
 
-    private String customAttributeItems;
+    private String customAttributeItems;//自定义属性
 
     public Long getId() {
         return id;

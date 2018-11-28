@@ -3,13 +3,13 @@ package com.bees360.pojo;
 import java.io.Serializable;
 
 public class TbSpecificationOption implements Serializable{
-    private Long id;
+    private Long id;//规格项ID
 
-    private String optionName;
+    private String optionName;//规格项名称
 
-    private Long specId;
+    private Long specId;//规格ID
 
-    private Integer orders;
+    private Integer orders;//排序值
 
     public Long getId() {
         return id;

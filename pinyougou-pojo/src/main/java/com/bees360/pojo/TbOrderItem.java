@@ -6,21 +6,21 @@ import java.math.BigDecimal;
 public class TbOrderItem implements Serializable{
     private Long id;
 
-    private Long itemId;
+    private Long itemId;//商品id
 
-    private Long goodsId;
+    private Long goodsId;//SPU_ID
 
-    private Long orderId;
+    private Long orderId;//订单id
 
-    private String title;
+    private String title;//商品标题
 
-    private BigDecimal price;
+    private BigDecimal price;//商品单价
 
-    private Integer num;
+    private Integer num;//商品购买数量
 
-    private BigDecimal totalFee;
+    private BigDecimal totalFee;//商品总金额
 
-    private String picPath;
+    private String picPath;//商品图片地址
 
     private String sellerId;
 

@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class TbContent implements Serializable{
     private Long id;
 
-    private Long categoryId;
+    private Long categoryId;//内容类目ID
 
-    private String title;
+    private String title;//内容标题
 
-    private String url;
+    private String url;//链接
 
-    private String pic;
+    private String pic;//图片绝对路径
 
-    private String status;
+    private String status;//状态
 
-    private Integer sortOrder;
+    private Integer sortOrder;//排序
 
     public Long getId() {
         return id;

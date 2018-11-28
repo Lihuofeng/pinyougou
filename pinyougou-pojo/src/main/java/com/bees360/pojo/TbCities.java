@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class TbCities implements Serializable{
     private Integer id;
 
-    private String cityid;
+    private String cityid;//城市ID
 
-    private String city;
+    private String city;//城市名称
 
-    private String provinceid;
+    private String provinceid;//省份ID
 
     public Integer getId() {
         return id;

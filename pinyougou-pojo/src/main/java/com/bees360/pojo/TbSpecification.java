@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class TbSpecification implements Serializable{
     private Long id;
 
-    private String specName;
+    private String specName;//名称
 
     public Long getId() {
         return id;

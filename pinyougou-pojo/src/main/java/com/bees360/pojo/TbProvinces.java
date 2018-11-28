@@ -3,11 +3,11 @@ package com.bees360.pojo;
 import java.io.Serializable;
 
 public class TbProvinces implements Serializable{
-    private Integer id;
+    private Integer id;//
 
-    private String provinceid;
+    private String provinceid;//省份ID
 
-    private String province;
+    private String province;//省份名称
 
     public Integer getId() {
         return id;

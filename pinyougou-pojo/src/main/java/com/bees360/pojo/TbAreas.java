@@ -3,13 +3,13 @@ package com.bees360.pojo;
 import java.io.Serializable;
 
 public class TbAreas implements Serializable{
-    private Integer id;
+    private Integer id;//唯一ID
 
-    private String areaid;
+    private String areaid;//区域ID
 
-    private String area;
+    private String area;//区域名称
 
-    private String cityid;
+    private String cityid;//城市ID
 
     public Integer getId() {
         return id;

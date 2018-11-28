@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class TbBrand implements Serializable{
     private Long id;
 
-    private String name;
+    private String name;//品牌名称
 
-    private String firstChar;
+    private String firstChar;//品牌首字母
 
     public Long getId() {
         return id;

@@ -7,35 +7,35 @@ import java.util.Date;
 public class TbSeckillGoods implements Serializable{
     private Long id;
 
-    private Long goodsId;
+    private Long goodsId;//spu ID
 
-    private Long itemId;
+    private Long itemId;//sku ID
 
-    private String title;
+    private String title;//标题
 
-    private String smallPic;
+    private String smallPic;//商品图片
 
-    private BigDecimal price;
+    private BigDecimal price;//原价格
 
-    private BigDecimal costPrice;
+    private BigDecimal costPrice;//秒杀价格
 
-    private String sellerId;
+    private String sellerId;//商家ID
 
-    private Date createTime;
+    private Date createTime;//添加日期
 
-    private Date checkTime;
+    private Date checkTime;//审核日期
 
-    private String status;
+    private String status;//审核状态
 
-    private Date startTime;
+    private Date startTime;//开始时间
 
-    private Date endTime;
+    private Date endTime;//结束时间
 
-    private Integer num;
+    private Integer num;//秒杀商品数
 
-    private Integer stockCount;
+    private Integer stockCount;//剩余库存数
 
-    private String introduction;
+    private String introduction;//描述
 
     public Long getId() {
         return id;
