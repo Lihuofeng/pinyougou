@@ -1,6 +1,7 @@
 package com.bees360.shop.controller;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,7 @@ import com.bees360.entity.PageResult;
 import com.bees360.entity.Result;
 import com.bees360.pojo.TbGoods;
 import com.bees360.sellergoods.service.GoodsService;
+import com.bees360.vo.Goods;
 
 /**
  * controller
@@ -47,7 +49,9 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbGoods goods){
+	public Result add(@RequestBody Goods goods){
+		String sellerId=SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.getGoods().setSellerId(sellerId);//设置商家id
 		try {
 			goodsService.add(goods);
 			return new Result(true, "增加成功");

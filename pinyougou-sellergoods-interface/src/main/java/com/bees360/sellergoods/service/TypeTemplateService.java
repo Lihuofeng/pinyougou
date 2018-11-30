@@ -1,5 +1,7 @@
 package com.bees360.sellergoods.service;
 import java.util.List;
+import java.util.Map;
+
 import com.bees360.pojo.TbTypeTemplate;
 
 import com.bees360.entity.PageResult;
@@ -58,4 +60,7 @@ public interface TypeTemplateService {
 	 */
 	public PageResult findPage(TbTypeTemplate typeTemplate, int pageNum,int pageSize);
 	
+	
+	//商品类型模板下拉框数据
+	public List<Map> selectOptionList();
 }
