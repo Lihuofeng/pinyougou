@@ -106,5 +106,17 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
 				}
 		);
 	}
+	
+	//定义实体
+	$scope.entity={goods:{},goodsDesc:{itemImages:[]}};
+	//将当前上传的图片实体存入图片列表
+	$scope.add_image_entity=function(){
+		$scope.entity.goodsDesc.itemImages.push($scope.image_entity);
+	}
+	
+	//移除图片
+	$scope.remove_image_entity=function(index){
+		$scope.entity.goodsDesc.itemImages.splice(index,1);
+	}
     
 });	

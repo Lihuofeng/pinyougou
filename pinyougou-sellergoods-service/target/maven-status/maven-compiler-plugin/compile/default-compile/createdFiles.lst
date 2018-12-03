@@ -1,0 +1,9 @@
+com\bees360\sellergoods\service\impl\SpecificationOptionServiceImpl.class
+com\bees360\sellergoods\service\impl\SellerServiceImpl.class
+com\bees360\sellergoods\service\impl\GoodsDescServiceImpl.class
+com\bees360\sellergoods\service\impl\ItemServiceImpl.class
+com\bees360\sellergoods\service\impl\SpecificationServiceImpl.class
+com\bees360\sellergoods\service\impl\GoodsServiceImpl.class
+com\bees360\sellergoods\service\impl\ItemCatServiceImpl.class
+com\bees360\sellergoods\service\impl\BrandServiceImpl.class
+com\bees360\sellergoods\service\impl\TypeTemplateServiceImpl.class
