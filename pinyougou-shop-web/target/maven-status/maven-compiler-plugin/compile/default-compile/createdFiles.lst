@@ -1,4 +1,7 @@
+com\bees360\shop\controller\ItemCatController.class
 com\bees360\shop\controller\GoodsController.class
 com\bees360\shop\service\UserDetailsServiceImpl.class
 com\bees360\shop\controller\SellerController.class
+com\bees360\shop\controller\TypeTemplateController.class
 com\bees360\shop\controller\LoginController.class
+com\bees360\shop\controller\UploadController.class

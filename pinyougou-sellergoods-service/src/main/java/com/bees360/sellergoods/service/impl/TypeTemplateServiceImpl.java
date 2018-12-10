@@ -3,11 +3,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.bees360.entity.PageResult;
+import com.bees360.mapper.TbSpecificationOptionMapper;
 import com.bees360.mapper.TbTypeTemplateMapper;
+import com.bees360.pojo.TbSpecificationOption;
+import com.bees360.pojo.TbSpecificationOptionExample;
 import com.bees360.pojo.TbTypeTemplate;
 import com.bees360.pojo.TbTypeTemplateExample;
 import com.bees360.pojo.TbTypeTemplateExample.Criteria;
@@ -24,6 +29,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
 	@Autowired
 	private TbTypeTemplateMapper typeTemplateMapper;
+	
+	@Autowired
+	private TbSpecificationOptionMapper specificationOptionMapper;
 	
 	/**
 	 * 查询全部
@@ -112,6 +120,23 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		@Override
 		public List<Map> selectOptionList() {
 			return typeTemplateMapper.selectOptionList();
+		}
+
+		//查询规格列表
+		@Override
+		public List<Map> findSpecList(Long id) {
+			//查询模板
+			TbTypeTemplate typeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
+			List<Map> list = JSON.parseArray(typeTemplate.getSpecIds(), Map.class);
+			for (Map map : list) {
+				//查询规格选项列表
+				TbSpecificationOptionExample example=new TbSpecificationOptionExample();
+				com.bees360.pojo.TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
+				criteria.andSpecIdEqualTo(new Long((Integer)map.get("id")));
+				List<TbSpecificationOption> options = specificationOptionMapper.selectByExample(example);
+				map.put("options", options);
+			}
+			return list;
 		}
 	
 }
