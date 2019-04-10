@@ -11,9 +11,6 @@
     					}	
     			);
     		}  */
-    		
-    		
-    		
     	 	
     		//品牌列表分页
     		$scope.findPage=function(page,size){
@@ -66,7 +63,6 @@
     				}		
     			);
     		}  
-    		
     		
     		//根据ID查品牌实体
     		$scope.findById=function(id){

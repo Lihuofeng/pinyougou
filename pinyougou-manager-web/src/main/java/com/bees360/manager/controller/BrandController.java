@@ -16,23 +16,24 @@ import com.bees360.sellergoods.service.BrandService;
 @RestController
 @RequestMapping("/brand")
 public class BrandController {
-	@Reference //远程注入
+
+	@Reference // 远程注入
 	private BrandService brandService;
-	
-	@RequestMapping("/findAll") 
-	public List<TbBrand> findAll(){
+
+	@RequestMapping("/findAll")
+	public List<TbBrand> findAll() {
 		return brandService.findAll();
 	}
-	
+
 	@RequestMapping("/findPage")
-	public PageResult findPage(int page,int size){
+	public PageResult findPage(int page, int size) {
 		return brandService.findPage(page, size);
 	}
-	
-	//添加品牌
+
+	// 添加品牌
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbBrand tbBrand){
-		 try {
+	public Result add(@RequestBody TbBrand tbBrand) {
+		try {
 			brandService.add(tbBrand);
 			return new Result(true, "添加品牌成功！");
 		} catch (Exception e) {
@@ -40,16 +41,15 @@ public class BrandController {
 			return new Result(false, "添加品牌失败！");
 		}
 	}
-	
-	
+
 	@RequestMapping("findById")
-	public TbBrand findById(Long id){
+	public TbBrand findById(Long id) {
 		return brandService.findById(id);
 	}
-	
-	//修改品牌
+
+	// 修改品牌
 	@RequestMapping("update")
-	public Result update(@RequestBody TbBrand tbBrand){
+	public Result update(@RequestBody TbBrand tbBrand) {
 		try {
 			brandService.update(tbBrand);
 			return new Result(true, "修改品牌成功！");
@@ -58,15 +58,15 @@ public class BrandController {
 			return new Result(false, "修改品牌失败！");
 		}
 	}
-	
-	//添加品牌和修改品牌结合
+
+	// 添加品牌和修改品牌结合
 	@RequestMapping("save")
-	public Result save(@RequestBody TbBrand tbBrand){
+	public Result save(@RequestBody TbBrand tbBrand) {
 		TbBrand findById = brandService.findById(tbBrand.getId());
 		try {
-			if(findById!=null){
+			if (findById != null) {
 				brandService.update(tbBrand);
-			}else{
+			} else {
 				brandService.add(tbBrand);
 			}
 			return new Result(true, "保存品牌成功！");
@@ -75,10 +75,10 @@ public class BrandController {
 			return new Result(false, "保存品牌失败！");
 		}
 	}
-	
-	//删除品牌
+
+	// 删除品牌
 	@RequestMapping("delete")
-	public Result delete(Long[] ids){
+	public Result delete(Long[] ids) {
 		try {
 			brandService.delete(ids);
 			return new Result(true, "删除品牌成功!");
@@ -87,18 +87,17 @@ public class BrandController {
 			return new Result(false, "删除品牌失败！");
 		}
 	}
-	
-	//条件查询
+
+	// 条件查询
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbBrand tbBrand,int page,int size){
+	public PageResult search(@RequestBody TbBrand tbBrand, int page, int size) {
 		return brandService.findPage(tbBrand, page, size);
 	}
-	
-	
-	//品牌下拉列表
+
+	// 品牌下拉列表
 	@RequestMapping("/selectOptionList")
-	public List<Map> selectOptionList(){
+	public List<Map> selectOptionList() {
 		return brandService.selectOptionList();
 	}
-	
+
 }
