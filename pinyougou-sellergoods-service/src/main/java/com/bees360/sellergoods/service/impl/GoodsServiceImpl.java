@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.bees360.entity.PageResult;
@@ -19,10 +18,12 @@ import com.bees360.mapper.TbItemMapper;
 import com.bees360.mapper.TbSellerMapper;
 import com.bees360.pojo.TbBrand;
 import com.bees360.pojo.TbGoods;
+import com.bees360.pojo.TbGoodsDesc;
 import com.bees360.pojo.TbGoodsExample;
 import com.bees360.pojo.TbGoodsExample.Criteria;
 import com.bees360.pojo.TbItem;
 import com.bees360.pojo.TbItemCat;
+import com.bees360.pojo.TbItemExample;
 import com.bees360.pojo.TbSeller;
 import com.bees360.sellergoods.service.GoodsService;
 import com.bees360.vo.Goods;
@@ -82,29 +83,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 		goods.getGoodsDesc().setGoodsId(goods.getGoods().getId());// 将商品基本表的id给商品扩展表
 		goodsDescMapper.insert(goods.getGoodsDesc());// 插入商品扩展信息
-		if ("1".equals(goods.getGoods().getIsEnableSpec())) {
-			for (TbItem item : goods.getItemList()) {
-				// title spu名称+规格选项
-				String title = goods.getGoods().getGoodsName();// SPU名称
-				Map<String, Object> map = JSON.parseObject(item.getSpec());
-				for (String key : map.keySet()) {
-					title += " " + map.get(key);
-				}
-				item.setTitle(title);
-				setItemValues(item, goods);
-				itemMapper.insert(item);
-			}
-		} else {
-			TbItem item = new TbItem();
-			item.setTitle(goods.getGoods().getGoodsName());
-			item.setPrice(goods.getGoods().getPrice());
-			item.setNum(9999);
-			item.setStatus("1");
-			item.setIsDefault("1");
-			item.setSpec("{}");
-			setItemValues(item, goods);
-			itemMapper.insert(item);
-		}
+		saveItemList(goods);// 插入SKU商品数据
 	}
 
 	private void setItemValues(TbItem item, Goods goods) {
@@ -135,12 +114,49 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 	}
 
+	// 插入SKU列表数据
+	private void saveItemList(Goods goods) {
+		if ("1".equals(goods.getGoods().getIsEnableSpec())) {
+			for (TbItem item : goods.getItemList()) {
+				// title spu名称+规格选项
+				String title = goods.getGoods().getGoodsName();// SPU名称
+				Map<String, Object> map = JSON.parseObject(item.getSpec());
+				for (String key : map.keySet()) {
+					title += " " + map.get(key);
+				}
+				item.setTitle(title);
+				setItemValues(item, goods);
+				itemMapper.insert(item);
+			}
+		} else {
+			TbItem item = new TbItem();
+			item.setTitle(goods.getGoods().getGoodsName());
+			item.setPrice(goods.getGoods().getPrice());
+			item.setNum(9999);
+			item.setStatus("1");
+			item.setIsDefault("1");
+			item.setSpec("{}");
+			setItemValues(item, goods);
+			itemMapper.insert(item);
+		}
+	}
+
 	/**
 	 * 修改
 	 */
 	@Override
-	public void update(TbGoods goods) {
-		goodsMapper.updateByPrimaryKey(goods);
+	public void update(Goods goods) {
+		// 更新商品基本表
+		goodsMapper.updateByPrimaryKey(goods.getGoods());
+		// 更新扩展表
+		goodsDescMapper.updateByPrimaryKey(goods.getGoodsDesc());
+		// 删除原有的SKU列表数据
+		TbItemExample example = new TbItemExample();
+		com.bees360.pojo.TbItemExample.Criteria criteria = example.createCriteria();
+		criteria.andGoodsIdEqualTo(goods.getGoods().getId());
+		itemMapper.deleteByExample(example);
+		// 插入新的SKU列表
+		saveItemList(goods);
 	}
 
 	/**
@@ -150,8 +166,21 @@ public class GoodsServiceImpl implements GoodsService {
 	 * @return
 	 */
 	@Override
-	public TbGoods findOne(Long id) {
-		return goodsMapper.selectByPrimaryKey(id);
+	public Goods findOne(Long id) {
+		Goods goods = new Goods();
+		// 商品基本表
+		TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+		goods.setGoods(tbGoods);
+		// 商品扩展表
+		TbGoodsDesc goodsDesc = goodsDescMapper.selectByPrimaryKey(id);
+		goods.setGoodsDesc(goodsDesc);
+		// 读取SKU列表
+		TbItemExample example = new TbItemExample();
+		com.bees360.pojo.TbItemExample.Criteria criteria = example.createCriteria();
+		criteria.andGoodsIdEqualTo(id);
+		List<TbItem> itemList = itemMapper.selectByExample(example);
+		goods.setItemList(itemList);
+		return goods;
 	}
 
 	/**
@@ -173,7 +202,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 		if (goods != null) {
 			if (goods.getSellerId() != null && goods.getSellerId().length() > 0) {
-				criteria.andSellerIdLike("%" + goods.getSellerId() + "%");
+				criteria.andSellerIdEqualTo(goods.getSellerId());
 			}
 			if (goods.getGoodsName() != null && goods.getGoodsName().length() > 0) {
 				criteria.andGoodsNameLike("%" + goods.getGoodsName() + "%");

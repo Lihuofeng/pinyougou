@@ -2,6 +2,8 @@ package com.bees360.mapper;
 
 import com.bees360.pojo.TbGoodsDesc;
 import com.bees360.pojo.TbGoodsDescExample;
+import com.bees360.vo.Goods;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,5 +28,5 @@ public interface TbGoodsDescMapper {
 
     int updateByPrimaryKeySelective(TbGoodsDesc record);
 
-    int updateByPrimaryKey(TbGoodsDesc record);
+    int updateByPrimaryKey(TbGoodsDesc tbGoodsDesc);
 }
